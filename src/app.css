@@ -1,0 +1,12 @@
+*{
+    margin: 0;
+    padding: 0;
+    /* background: #0F36A5; */
+}
+
+.screen__styling
+{
+    width: 100%;
+    background: #0F36A5;
+    height: 100vh;
+}

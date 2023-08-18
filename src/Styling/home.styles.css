@@ -1,0 +1,88 @@
+
+.left__nav
+{
+    width: 189px;
+    height: 450px;
+    background-color: #64C1EA;
+    border-radius: 12px 0px 0px 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.nav__item
+{
+    margin: 12px 18px;
+    background-color: #0f37a5a4;
+    border: 2px solid #0F36A5;
+    border-radius: 7px;
+    text-align: center;
+    color: white;
+    padding: 9px 8px;
+    cursor: pointer;
+}
+
+.not__active
+{
+    background-color: transparent;
+}
+
+.right__act
+{
+    width: 520px;
+    height: 450px;
+    background-color: #D9D9D9;
+    border-radius: 0px 12px 12px 0px;
+}
+
+.person__detail
+{
+    display: flex;
+    justify-content: space-between;
+    width: 480px;
+    margin: 12px auto;
+    background-color: white;
+    padding: 8px 12px;
+    border-radius: 14px;
+}
+
+.person__detail div
+{
+    justify-self: flex-start;
+    margin-right: 220px;
+}
+
+.person__detail div p
+{
+    color: green;
+    font-size: 12px;
+}
+
+.person__detail button
+{
+    padding: 4px 12px;
+    border-radius: 6px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    color: white;
+    background-color: #64C1EA;
+}
+
+.alert__msg
+{
+    text-align: center;
+    color: green;
+    margin: 12px;
+}
+
+.person__detail .badge__icon
+{
+    color: #1F356A;
+    margin-top: 7px;
+}
+
+.done__act
+{
+    background-color: #00CD83;
+}
