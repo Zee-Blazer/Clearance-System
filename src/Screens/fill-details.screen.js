@@ -7,6 +7,7 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import MilitaryTechIcon from '@mui/icons-material/MilitaryTech';
 import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
 import FormatItalicIcon from '@mui/icons-material/FormatItalic';
+import EmailIcon from '@mui/icons-material/Email';
 
 export const FillDetailsScreen = () => {
     
@@ -41,6 +42,11 @@ export const FillDetailsScreen = () => {
                     <div className='input__cont'>
                         <PhoneAndroidIcon className='input__icon' />
                         <input type='text' placeholder='Phone' />
+                    </div>
+
+                    <div className='input__cont'>
+                        <EmailIcon className='input__icon' />
+                        <input type='email' placeholder='Email' />
                     </div>
 
                     <button className='login__btn fill__submit'>SUBMIT</button>
