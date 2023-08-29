@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 // Home Screen CSS styling
 import '../Styling/home.styles.css';
+
+// Navigation items
+import { redirect, useNavigate } from 'react-router-dom';
 
 // Material TABS
 import Tabs from '@mui/material/Tabs';
@@ -17,9 +20,18 @@ import { AlertDialogSlide } from '../Components/alert.component';
 
 export const HomeScreen = () => {
 
+    const navigate = useNavigate();
+
     const [value, setValue] = useState(0);
     const [screen, setScreen] = useState("undergraduate");
     const [openAlert, setOpenAlert] = useState(false);
+    const [type, setType] = useState("alert");
+    const [data, setData] = useState();
+
+    // Alert display
+    const [sendDetails, setSendDetails] = useState();
+
+    const openType = (text) => setType(text);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -36,6 +48,10 @@ export const HomeScreen = () => {
         setOpenAlert(false);
       };
 
+    useEffect( () => {
+        if(!localStorage.getItem('admin')) navigate('/login');
+    }, [] )
+
     return (
         <div className="login__container">
 
@@ -44,7 +60,9 @@ export const HomeScreen = () => {
                 handleClickOpen={ handleClickOpen } 
                 handleClose={ handleClose } 
                 open={ openAlert } 
-                type="details"
+                type={ type }
+                data={ data }
+                sendDetails={ sendDetails }
             />
 
             <div className="left__nav">
@@ -69,7 +87,16 @@ export const HomeScreen = () => {
                     Request to Data Favour’s SMS has been sent successfully
                 </p>
 
-                <Displayer display={ screen } value={ value } handleClickOpen={ handleClickOpen } />
+                <div className='scrollable__cont'>
+                    <Displayer 
+                        display={ screen } 
+                        value={ value } 
+                        handleClickOpen={ handleClickOpen } 
+                        openType={ openType }
+                        setData={ setData }
+                        setSendDetails={ setSendDetails }
+                    />
+                </div>
 
             </div>
 

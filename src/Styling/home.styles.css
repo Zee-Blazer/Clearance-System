@@ -62,7 +62,9 @@
 .person__detail div
 {
     justify-self: flex-start;
-    margin-right: 220px;
+    margin-left: 21px;
+    flex: 1;
+    cursor: pointer;
 }
 
 .person__detail div p
@@ -71,7 +73,7 @@
     font-size: 12px;
 }
 
-.person__detail button
+.buttonDo
 {
     padding: 4px 12px;
     border-radius: 6px;
@@ -98,6 +100,12 @@
 .done__act
 {
     background-color: #00CD83;
+}
+
+.scrollable__cont
+{
+    max-height: 348px;
+    overflow: scroll;
 }
 
 /* .bg__display

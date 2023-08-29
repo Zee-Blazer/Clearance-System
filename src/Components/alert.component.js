@@ -15,7 +15,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export function AlertDialogSlide({ handleClickOpen, handleClose, open, type }) {
+export function AlertDialogSlide({ sendDetails, handleClose, open, type, data }) {
 
     let renderComponent;
 
@@ -29,16 +29,22 @@ export function AlertDialogSlide({ handleClickOpen, handleClose, open, type }) {
                     onClose={handleClose}
                     aria-describedby="alert-dialog-slide-description"
                 >
-                    <DialogTitle>{"Use Google's location service?"}</DialogTitle>
+                    <DialogTitle>Do you want to send?</DialogTitle>
                     <DialogContent>
                     <DialogContentText id="alert-dialog-slide-description">
-                        Let Google help apps determine location. This means sending anonymous
-                        location data to Google, even when no apps are running.
+                        { sendDetails && <>
+                            Message that would be sent to the student "{
+                                sendDetails.map( item => (
+                                    <span style={{ color: 'red' }}>{ item }, </span>
+                                ) )
+                            }"
+                            </> 
+                        }
                     </DialogContentText>
                     </DialogContent>
                     <DialogActions>
-                    <Button onClick={handleClose}>Disagree</Button>
-                    <Button onClick={handleClose}>Agree</Button>
+                    <Button onClick={handleClose}>Cancel</Button>
+                    <Button onClick={handleClose}>Send</Button>
                     </DialogActions>
                 </Dialog>
             </>
@@ -54,17 +60,23 @@ export function AlertDialogSlide({ handleClickOpen, handleClose, open, type }) {
                 >
                     <DialogTitle>
                         Clearance Details (
-                        <span style={{ color: "green" }}>Dada Favour</span>)
+                        <span style={{ color: "green" }}>{ data && data[0] }</span>)
                     </DialogTitle>
                     <DialogContent>
-                        <DialogContentText style={{ display: 'flex', marginTop: 7 }}>
-                            <CheckCircleIcon color="success" />
-                            <p style={{ marginLeft: "6px" }}>Department</p>
-                        </DialogContentText>
-                        <DialogContentText style={{ display: 'flex', marginTop: 7 }}>
-                            <CancelIcon style={{ color: "red" }} />
-                            <p style={{ marginLeft: "6px" }}>Library</p>
-                        </DialogContentText>
+                        { data && data[1].map( (item ) => {
+                            console.log(item)
+
+                            return (
+                                <DialogContentText style={{ display: 'flex', marginTop: 7 }}>
+                                    { 
+                                        item.cleared === "true" ? 
+                                            <CheckCircleIcon color="success" /> :
+                                            <CancelIcon style={{ color: "red" }} /> 
+                                    }
+                                    <p style={{ marginLeft: "6px" }}>{ (item.section) }</p>
+                                </DialogContentText>
+                            )
+                        } ) }
                     </DialogContent>
                 </Dialog>
             </>
@@ -73,9 +85,6 @@ export function AlertDialogSlide({ handleClickOpen, handleClose, open, type }) {
 
   return (
     <div>
-      {/* <Button variant="outlined" onClick={handleClickOpen}>
-        Slide in alert dialog
-      </Button> */}
       { renderComponent }
     </div>
   );
