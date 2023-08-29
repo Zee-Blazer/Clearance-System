@@ -46,10 +46,15 @@ export const StudentListComponent = ({
                     openType("alert");
                     handleClickOpen();
                     if(type){
-                        setSendDetails(checkMsg(item.requirements));
+                        setSendDetails(["complete", checkMsg(item.requirements)]);
                     }
                     else if(!type){
-                        setSendDetails(["Send a message to student that the clearance is completed and he/she can proceed."]);
+                        setSendDetails(
+                            [
+                                "send", 
+                                ["Send a message to student that the clearance is completed and he/she can proceed."]
+                            ]
+                        );
                     }
                 } }
             >{ !type ? "Approve" : "Ask to complete" }</button>

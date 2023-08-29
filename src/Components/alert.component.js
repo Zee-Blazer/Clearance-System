@@ -11,13 +11,26 @@ import Slide from '@mui/material/Slide';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
 
+// API work
+import { sendEmail, sendPhone } from '../Services/student.post';
+
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
+const arrangeMsg = (data) => {
+    // alert(data);
+    return data.join(", ")
+}
+
 export function AlertDialogSlide({ sendDetails, handleClose, open, type, data }) {
 
     let renderComponent;
+
+    const sendEmailAndPhone = (subject, text, msg) => {
+        sendEmail(subject, text);
+        sendPhone(msg);
+    }
 
     switch(type){
         case "alert":
@@ -34,7 +47,7 @@ export function AlertDialogSlide({ sendDetails, handleClose, open, type, data })
                     <DialogContentText id="alert-dialog-slide-description">
                         { sendDetails && <>
                             Message that would be sent to the student "{
-                                sendDetails.map( item => (
+                                sendDetails[1].map( item => (
                                     <span style={{ color: 'red' }}>{ item }, </span>
                                 ) )
                             }"
@@ -44,7 +57,24 @@ export function AlertDialogSlide({ sendDetails, handleClose, open, type, data })
                     </DialogContent>
                     <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleClose}>Send</Button>
+                    <Button onClick={ () => {
+                        if(sendDetails[0] == "send"){
+                            const subject = "Congratulations!!!";
+                            const text = `You have completed your clearance
+You can now go to the register to get your Certificate`;
+
+                            const toPhone = subject + "\n" + text;
+                            sendEmailAndPhone(subject, text, toPhone)
+                        }
+                        else {
+                            const subject = "Clearance Almost completed"
+                            const text = `You have to complete ${arrangeMsg(sendDetails[1])} before you can be cleared`;
+
+                            const toPhone = subject + "\n" + text;
+                            sendEmailAndPhone(subject, text, toPhone);
+                        }
+                        handleClose()
+                    } }>Send</Button>
                     </DialogActions>
                 </Dialog>
             </>
@@ -67,13 +97,13 @@ export function AlertDialogSlide({ sendDetails, handleClose, open, type, data })
                             console.log(item)
 
                             return (
-                                <DialogContentText style={{ display: 'flex', marginTop: 7 }}>
+                                <DialogContentText style={{ display: 'flex', marginTop: 12 }}>
                                     { 
                                         item.cleared === "true" ? 
                                             <CheckCircleIcon color="success" /> :
                                             <CancelIcon style={{ color: "red" }} /> 
                                     }
-                                    <p style={{ marginLeft: "6px" }}>{ (item.section) }</p>
+                                    <p style={{ marginLeft: "6px" }}>{ (item.section).toUpperCase() }</p>
                                 </DialogContentText>
                             )
                         } ) }
